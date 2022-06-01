@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "632483522198",
+    "project_id": "open-request-gallary",
+    "storage_bucket": "open-request-gallary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632483522198:android:5b6c83f9eb6d719484c4b7",
+        "android_client_info": {
+          "package_name": "com.hoavy.orapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632483522198-fuk3nsfoirctlhkcvcud0p4kck129s47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDanvt1mo6Nc8KCPU9BMkKyFF5AjI5LpWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632483522198-fuk3nsfoirctlhkcvcud0p4kck129s47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

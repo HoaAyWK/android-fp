@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">orapp</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_category">Category</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="welcome_back_admin">Welcome Back!</string>
+    <string name="banner_title">Manage your app</string>
+    <string name="banner_subtitle">Your dashboard has been improved!</string>
+    <string name="categories">Categories</string>
+    <string name="see_all">See all</string>
+    <string name="create">Create</string>
+
+    <string name="add_category">Add Category</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="title_name">Name</string>
+    <string name="title_description">Description</string>
+    <string name="description">Type description here…</string>
+    <string name="save">Save</string>
+    <string name="posts">Posts</string>
+    <string name="users">Users</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_a_new_account">Create a new account</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+    <string name="home_title">All Jobs</string>
+    <string name="sub_slogan">Discover the most outstanding jobs in all topics of information technology.</string>
+    <string name="latest_card_title_demo">Discover the most outstanding jobs in all topics</string>
+    <string name="highest_price_post">Highest Price Posts</string>
+    <string name="select">Select</string>
+    <string name="details">Details</string>
+    <string name="profile">Profile</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="duration">Duration</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="all_posts">All Posts</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="sign_out">Sign out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
