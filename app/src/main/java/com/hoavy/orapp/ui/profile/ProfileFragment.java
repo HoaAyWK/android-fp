@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
                 .get(ProfileViewModel.class);
         profileViewModel.init(getContext());
         sharedHelper = SharedHelper.getInstance(getContext());
-        adapter = new PostCardAdapter();
+        adapter = new PostCardAdapter(getContext());
 
         if (sharedHelper.isLoggedIn()) {
             String name = sharedHelper.getFistName() + " " + sharedHelper.getLastName();

@@ -1,5 +1,8 @@
 package com.hoavy.orapp.adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.hoavy.orapp.PostDetialActivity;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.models.dtos.response.PostResponse;
 import com.hoavy.orapp.repositories.CategoryRepository;
@@ -23,10 +28,10 @@ import java.util.List;
 public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCardHolder> {
 
     private List<PostResponse> postResponses = new ArrayList<>();
+    private Context context;
 
-
-    public PostCardAdapter() {
-
+    public PostCardAdapter(Context context) {
+        this.context = context;
     }
 
     public void setPostResponses(List<PostResponse> postResponses) {
@@ -69,6 +74,24 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCa
                     .load(postResponse.getAuthor().getFeaturedAvatar())
                     .into(holder.imgOwnerAvatar);
         }
+
+        holder.postCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PostDetialActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", postResponse.getId());
+                intent.putExtra("post", bundle);
+                context.startActivity(intent);
+            }
+        });
+
+        holder.avatarCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -82,6 +105,9 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCa
         private TextView tvCreatedTime;
         private ImageView imgPostCard;
         private ImageView imgOwnerAvatar;
+        private CardView postCard;
+        private CardView avatarCard;
+
         public PostCardHolder(@NonNull View itemView) {
             super(itemView);
             tvPostTitle = itemView.findViewById(R.id.tvPostCardTitle);
@@ -89,6 +115,8 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCa
             tvOwnerName = itemView.findViewById(R.id.tvOwnerPostName);
             imgPostCard = itemView.findViewById(R.id.imgPostCard);
             imgOwnerAvatar = itemView.findViewById(R.id.imgOwnerPostCard);
+            postCard = itemView.findViewById(R.id.postCard);
+            avatarCard = itemView.findViewById(R.id.avatarCard);
         }
     }
 }

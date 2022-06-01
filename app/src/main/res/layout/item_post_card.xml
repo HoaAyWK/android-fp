@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/postCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardElevation="1dp"
@@ -26,10 +26,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
+            android:id="@+id/avatarCard"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:elevation="12dp"
-            android:id="@+id/view2"
             card_view:cardCornerRadius="25dp"
             android:layout_margin="10dp">
             <ImageView

@@ -43,7 +43,7 @@ public class CategoryFragment extends Fragment {
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new CateAdapter();
-        postCardAdapter = new PostCardAdapter();
+        postCardAdapter = new PostCardAdapter(getContext());
 
         categoryViewModel = new ViewModelProvider(requireActivity())
                 .get(CategoryViewModel.class);

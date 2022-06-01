@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PostAdapter(getContext());
-        hpAdapter = new HighestPricePostAdapter();
+        hpAdapter = new HighestPricePostAdapter(getContext());
         categoryAdapter = new CategoryAdapter();
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
