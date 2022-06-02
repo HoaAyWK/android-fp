@@ -1,5 +1,6 @@
 package com.hoavy.orapp.api;
 
+import com.hoavy.orapp.models.Post;
 import com.hoavy.orapp.models.Tokens;
 import com.hoavy.orapp.models.User;
 import com.hoavy.orapp.models.dtos.CategoryRequest;
@@ -12,6 +13,7 @@ import com.hoavy.orapp.models.dtos.response.PostResponse;
 import com.hoavy.orapp.models.dtos.response.PostsResponse;
 import com.hoavy.orapp.models.dtos.response.SinglePostResponse;
 import com.hoavy.orapp.models.dtos.response.UsersResponse;
+import com.hoavy.orapp.repositories.PostsRepository;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
@@ -60,4 +63,13 @@ public interface RetrofitAPI {
 
     @POST("Posts/CreatePost")
     Call<PostResponse> createPost(@Body PostRequest postRequest);
+
+    @GET("Posts/GetCustomerProcessingPosts")
+    Call<PostsResponse> getCustomerProcessingPosts();
+
+    @GET("Posts/GetCustomerFinishedPosts")
+    Call<PostsResponse> getCustomerFinishedPosts();
+
+    @PUT("Posts/UpdatePost")
+    Call<Post> updatePost(@Query("id") String id, @Body PostRequest postRequest);
 }

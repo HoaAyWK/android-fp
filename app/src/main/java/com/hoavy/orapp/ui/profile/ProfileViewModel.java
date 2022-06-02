@@ -14,7 +14,9 @@ import com.hoavy.orapp.utils.SharedHelper;
 public class ProfileViewModel extends ViewModel {
     private MutableLiveData<String> mName;
     private MutableLiveData<String> mImage;
-    private LiveData<PostsResponse> postResponses;
+    private LiveData<PostsResponse> availablePostResponses;
+    private LiveData<PostsResponse> processingPostResponses;
+    private LiveData<PostsResponse> finishedPostResponses;
     private PostsAuthRepository postsRepository;
 
     public ProfileViewModel() {
@@ -24,12 +26,18 @@ public class ProfileViewModel extends ViewModel {
 
     public void init(Context context) {
         postsRepository = new PostsAuthRepository(context);
-        postResponses = postsRepository.getCustomerLiveData();
+        availablePostResponses = postsRepository.getCustomerLiveData();
+        processingPostResponses = postsRepository.getProcessingPostsLiveData();
+        finishedPostResponses = postsRepository.getFinishedPostsLiveData();
     }
 
     public void getPosts() {
         postsRepository.getCustomerPosts();
     }
+
+    public void getProcessingPosts() { postsRepository.getProcessingPosts(); }
+
+    public void getFinishedPosts() { postsRepository.getFinishedPosts(); }
 
     public void setName(String name) {
         mName.setValue(name);
@@ -47,7 +55,13 @@ public class ProfileViewModel extends ViewModel {
         return mImage;
     }
 
-    public LiveData<PostsResponse> getPostResponses() {
-        return postResponses;
+    public LiveData<PostsResponse> getAvailablePostResponses() {
+        return availablePostResponses;
     }
+
+    public LiveData<PostsResponse> getProcessingPostResponses() {
+        return processingPostResponses;
+    }
+
+    public LiveData<PostsResponse> getFinishedPostResponses() { return finishedPostResponses; }
 }

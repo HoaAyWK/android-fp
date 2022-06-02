@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:minHeight="200dp"
-                app:cardBackgroundColor="#9BFF90"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="@dimen/card_maincourse_elevation"
                 app:cardPreventCornerOverlap="false">
@@ -35,8 +34,7 @@
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
                     android:elevation="@dimen/card_image_elevation"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/frutorials" />
+                    android:scaleType="centerCrop"/>
             </androidx.cardview.widget.CardView>
             <RelativeLayout
                 android:id="@+id/author_edit_post"
@@ -66,7 +64,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:text="@string/sub_slogan"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -117,7 +114,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:text="@string/users"
                                 android:textSize="18sp" />
 
                             <ImageView
@@ -129,7 +125,6 @@
                                 android:id="@+id/durationPostDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/posts"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -203,7 +198,6 @@
                                 android:id="@+id/ownerPostEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/select"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
@@ -222,7 +216,6 @@
                                 android:id="@+id/ownerPostPhone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/select"
                                 android:textSize="18sp" />
                         </LinearLayout>
                     </LinearLayout>

@@ -6,19 +6,33 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.hoavy.orapp.ui.postdetail.PostDetialFragment;
+import com.hoavy.orapp.ui.postdetail.UpdatePostFragment;
 
 public class PostDetialActivity extends AppCompatActivity {
-
+    String postId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_detial_activity);
         Bundle bundle = getIntent().getBundleExtra("post");
         String id = bundle.getString("id");
+        postId = id;
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, PostDetialFragment.newInstance(id))
+                    .replace(R.id.post_detail_container, PostDetialFragment.newInstance(id))
                     .commitNow();
         }
+    }
+
+    public void addUpdatePostFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.post_detail_container, UpdatePostFragment.newInstance())
+                .commit();
+    }
+
+    public void addPostDetailFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.post_detail_container, PostDetialFragment.newInstance(postId))
+                .commit();
     }
 }

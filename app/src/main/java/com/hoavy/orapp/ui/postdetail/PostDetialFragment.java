@@ -1,5 +1,6 @@
 package com.hoavy.orapp.ui.postdetail;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hoavy.orapp.PostDetialActivity;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.databinding.PostDetailFragmentBinding;
 import com.hoavy.orapp.models.dtos.response.PostResponse;
@@ -45,7 +48,11 @@ public class PostDetialFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postDetailViewModel = new ViewModelProvider(this)
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+
+        postDetailViewModel = new ViewModelProvider(requireActivity())
                 .get(PostDetailViewModel.class);
         postDetailViewModel.init(postId);
     }
@@ -124,7 +131,7 @@ public class PostDetialFragment extends Fragment {
                             btnEdit.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    onClickEdit();
                                 }
                             });
                         }
@@ -138,4 +145,20 @@ public class PostDetialFragment extends Fragment {
         super.onDestroyView();
        binding = null;
    }
+
+   public void onClickEdit() {
+        if (getActivity() != null) {
+            ((PostDetialActivity)getActivity()).addUpdatePostFragment();
+        }
+   }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                ((PostDetialActivity)getActivity()).finish();
+                return true;
+        }
+        return false;
+    }
 }

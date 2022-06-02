@@ -37,7 +37,9 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     ProfileViewModel profileViewModel;
     SharedHelper sharedHelper;
-    PostCardAdapter adapter;
+    PostAdapter availablePostsAdapter;
+    PostAdapter processingPostsAdapter;
+    PostAdapter finishedPostAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,9 @@ public class ProfileFragment extends Fragment {
                 .get(ProfileViewModel.class);
         profileViewModel.init(getContext());
         sharedHelper = SharedHelper.getInstance(getContext());
-        adapter = new PostCardAdapter(getContext());
+        availablePostsAdapter = new PostAdapter(getContext());
+        processingPostsAdapter = new PostAdapter(getContext());
+        finishedPostAdapter = new PostAdapter(getContext());
 
         if (sharedHelper.isLoggedIn()) {
             String name = sharedHelper.getFistName() + " " + sharedHelper.getLastName();
@@ -56,15 +60,6 @@ public class ProfileFragment extends Fragment {
                 profileViewModel.setmImage(sharedHelper.getAvatar());
             }
         }
-
-        profileViewModel.getPostResponses().observe(this, new Observer<PostsResponse>() {
-            @Override
-            public void onChanged(PostsResponse postsResponse) {
-                if (postsResponse != null) {
-                    adapter.setPostResponses(postsResponse.getContent());
-                }
-            }
-        });
     }
 
     @Override
@@ -72,6 +67,41 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        TextView titleProcessingPosts = binding.titleProcessingPosts;
+        TextView titleFinishedPosts = binding.titleFinishedPosts;
+        TextView titleLatestPosts = binding.titleLatestPosts;
+
+        profileViewModel.getAvailablePostResponses().observe(getViewLifecycleOwner(), new Observer<PostsResponse>() {
+            @Override
+            public void onChanged(PostsResponse postsResponse) {
+                if (postsResponse != null) {
+                    availablePostsAdapter.setPostResponses(postsResponse.getContent());
+                    titleLatestPosts.setText(R.string.latest_posts);
+                }
+            }
+        });
+
+        profileViewModel.getProcessingPostResponses().observe(getViewLifecycleOwner(), new Observer<PostsResponse>() {
+            @Override
+            public void onChanged(PostsResponse postsResponse) {
+                if (postsResponse != null) {
+                    processingPostsAdapter.setPostResponses(postsResponse.getContent());
+                    titleProcessingPosts.setText(R.string.processing_posts);
+                }
+            }
+        });
+
+        profileViewModel.getFinishedPostResponses().observe(getViewLifecycleOwner(), new Observer<PostsResponse>() {
+            @Override
+            public void onChanged(PostsResponse postsResponse) {
+                if (postsResponse != null) {
+                    finishedPostAdapter.setPostResponses(postsResponse.getContent());
+                    titleFinishedPosts.setText(R.string.finished_posts);
+                }
+            }
+        });
+
         View root = binding.getRoot();
         LinearLayout profilePanel = binding.profilePanel;
         RelativeLayout signInOrSignUp = binding.signInOrSignUp;
@@ -89,10 +119,23 @@ public class ProfileFragment extends Fragment {
             signInOrSignUp.setVisibility(View.VISIBLE);
         }
 
-        RecyclerView recyclerPosts = binding.recyclerCustomerPosts;
-        recyclerPosts.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.VERTICAL, false));
-        recyclerPosts.setAdapter(adapter);
+        RecyclerView recyclerAvailablePosts = binding.recyclerCustomerPosts;
+        recyclerAvailablePosts.setLayoutManager(new LinearLayoutManager(container.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        recyclerAvailablePosts.setAdapter(availablePostsAdapter);
+
+
+
+            RecyclerView recyclerProcessingPosts = binding.recyclerProcessingPosts;
+            recyclerProcessingPosts.setLayoutManager(new LinearLayoutManager(container.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+            recyclerProcessingPosts.setAdapter(processingPostsAdapter);
+
+
+            RecyclerView recyclerFinishedPosts = binding.recyclerFinishedPosts;
+            recyclerFinishedPosts.setLayoutManager(new LinearLayoutManager(container.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+            recyclerFinishedPosts.setAdapter(finishedPostAdapter);
 
         if (profileViewModel.getImageLiveData().getValue() != null && !profileViewModel.getImageLiveData().getValue().isEmpty()) {
             Glide.with(ProfileFragment.this)
@@ -150,11 +193,6 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onDestroyView() {
