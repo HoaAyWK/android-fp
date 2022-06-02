@@ -47,13 +47,13 @@ public class PostResponse {
     private List<PostCategory> postCategories = null;
     @SerializedName("postRequests")
     @Expose
-    private Object postRequests;
+    private List<PostRequest> postRequests;
     @SerializedName("freelancerId")
     @Expose
-    private Object freelancerId;
+    private String freelancerId;
     @SerializedName("freelancer")
     @Expose
-    private Object freelancer;
+    private Freelancer freelancer;
 
     public String getId() {
         return id;
@@ -159,11 +159,11 @@ public class PostResponse {
         this.postCategories = postCategories;
     }
 
-    public Object getPostRequests() {
+    public List<PostRequest> getPostRequests() {
         return postRequests;
     }
 
-    public void setPostRequests(Object postRequests) {
+    public void setPostRequests(List<PostRequest> postRequests) {
         this.postRequests = postRequests;
     }
 
@@ -171,7 +171,7 @@ public class PostResponse {
         return freelancerId;
     }
 
-    public void setFreelancerId(Object freelancerId) {
+    public void setFreelancerId(String freelancerId) {
         this.freelancerId = freelancerId;
     }
 
@@ -179,7 +179,7 @@ public class PostResponse {
         return freelancer;
     }
 
-    public void setFreelancer(Object freelancer) {
+    public void setFreelancer(Freelancer freelancer) {
         this.freelancer = freelancer;
     }
 }

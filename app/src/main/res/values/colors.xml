@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="success">#4CAF50</color>
     <color name="success_light">#6BD66F</color>
+    <color name="warning">#ff9800</color>
 
     <color name="category_title">#4c4c4c</color>
     <color name="contentBodyColor">#FCFCFC</color>

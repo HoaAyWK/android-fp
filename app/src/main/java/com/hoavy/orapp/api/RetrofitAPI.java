@@ -11,6 +11,7 @@ import com.hoavy.orapp.models.dtos.TokensRequest;
 import com.hoavy.orapp.models.dtos.response.CategoriesResponse;
 import com.hoavy.orapp.models.dtos.response.PostResponse;
 import com.hoavy.orapp.models.dtos.response.PostsResponse;
+import com.hoavy.orapp.models.dtos.response.SelectResponse;
 import com.hoavy.orapp.models.dtos.response.SinglePostResponse;
 import com.hoavy.orapp.models.dtos.response.UsersResponse;
 import com.hoavy.orapp.repositories.PostsRepository;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -72,4 +74,10 @@ public interface RetrofitAPI {
 
     @PUT("Posts/UpdatePost")
     Call<Post> updatePost(@Query("id") String id, @Body PostRequest postRequest);
+
+    @POST("Posts/SelectPost")
+    Call<SelectResponse> selectPost(@Query("id") String id);
+
+    @DELETE("Posts/UnSelectPost")
+    Call<SelectResponse> unselectPost(@Query("postId") String id, @Query("freelancerId") String freelancerId);
 }

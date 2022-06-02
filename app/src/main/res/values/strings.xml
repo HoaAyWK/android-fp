@@ -63,4 +63,6 @@
     <string name="latest_posts">Latest Posts</string>
     <string name="processing_posts">Processing Posts</string>
     <string name="finished_posts">Finished Posts</string>
+    <string name="pending">Pending</string>
+    <string name="freelancer_requests">Freelancer Requests</string>
 </resources>
