@@ -11,6 +11,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hoavy.orapp.PostDetialActivity;
 import com.hoavy.orapp.R;
+import com.hoavy.orapp.adapters.FreelancerRequestAdapter;
 import com.hoavy.orapp.api.ApiUtils;
 import com.hoavy.orapp.api.RetrofitAPI;
 import com.hoavy.orapp.databinding.PostDetailFragmentBinding;
@@ -65,6 +68,7 @@ public class PostDetialFragment extends Fragment {
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        getActivity().setTitle("Post Detail");
 
         postDetailViewModel = new ViewModelProvider(requireActivity())
                 .get(PostDetailViewModel.class);
@@ -79,6 +83,8 @@ public class PostDetialFragment extends Fragment {
 
         View root = binding.getRoot();
         binding.skeleton.setVisibility(View.INVISIBLE);
+        binding.freelancerRequestsTitle.setVisibility(View.INVISIBLE);
+        binding.panelSelectedFreelancer.setVisibility(View.INVISIBLE);
 
         ImageView imgPost = binding.imgPostDetails;
         ImageView ownerAvatar = binding.imgOwnerPostAvatar;
@@ -137,10 +143,43 @@ public class PostDetialFragment extends Fragment {
                             if (TextUtils.equals(sharedHelper.getId(), post.getAuthorId())) {
                                 btnEdit.setVisibility(View.VISIBLE);
                                 btnSelect.setVisibility(View.INVISIBLE);
-                                cardOwnerPost.setVisibility(View.INVISIBLE);
+                                cardOwnerPost.setVisibility(View.GONE);
+
+                                if (post.getPostRequests().size() > 0) {
+                                    binding.freelancerRequestsTitle.setVisibility(View.VISIBLE);
+
+                                    binding.freelancerRequestsTitle.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (getActivity() != null) {
+                                                ((PostDetialActivity) getActivity()).addFreelancerListFragment();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    binding.freelancerRequestsTitle.setVisibility(View.GONE);
+                                }
+
+                                if (post.getFreelancer() != null) {
+                                    binding.freelancerRequestsTitle.setVisibility(View.GONE);
+                                    binding.panelSelectedFreelancer.setVisibility(View.VISIBLE);
+
+                                    String freelancerName = post.getFreelancer().getFirstName()
+                                            + " " + post.getFreelancer().getLastName();
+                                    binding.freelancerName.setText(freelancerName);
+                                    binding.freelancerEmail.setText(post.getFreelancer().getEmail());
+
+                                    if (post.getFreelancer().getPhone() != null) {
+                                        binding.freelancerPhone.setText(post.getFreelancer().getPhone());
+                                    }
+                                } else {
+                                    binding.panelSelectedFreelancer.setVisibility(View.GONE);
+                                }
                             } else {
                                 btnEdit.setVisibility(View.INVISIBLE);
                                 btnSelect.setVisibility(View.VISIBLE);
+                                binding.freelancerRequestsTitle.setVisibility(View.GONE);
+                                binding.panelSelectedFreelancer.setVisibility(View.GONE);
                             }
 
                             if (TextUtils.equals(sharedHelper.getRole(), "Freelancer")) {
@@ -153,10 +192,6 @@ public class PostDetialFragment extends Fragment {
                             } else {
                                 btnSelect.setVisibility(View.GONE);
                             }
-
-
-
-
 
                             btnEdit.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -195,7 +230,12 @@ public class PostDetialFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                ((PostDetialActivity)getActivity()).finish();
+                if (getActivity() != null) {
+                    if (((PostDetialActivity) getActivity()).getUpdatedPost()) {
+                        ((PostDetialActivity) getActivity()).setResult(110);
+                    }
+                    ((PostDetialActivity) getActivity()).finish();
+                }
                 return true;
         }
         return false;

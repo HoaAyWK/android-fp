@@ -10,7 +10,7 @@
     <string name="banner_subtitle">Your dashboard has been improved!</string>
     <string name="categories">Categories</string>
     <string name="see_all">See all</string>
-    <string name="create">Create</string>
+    <string name="create_new_post">Create Post</string>
 
     <string name="add_category">Add Category</string>
     <string name="edit_category">Edit Category</string>
@@ -65,4 +65,8 @@
     <string name="finished_posts">Finished Posts</string>
     <string name="pending">Pending</string>
     <string name="freelancer_requests">Freelancer Requests</string>
+    <string name="selected">Selected</string>
+    <string name="selected_freelancer">Selected Freelancer</string>
+    <string name="text_create">Want to hire a freelancer</string>
+    <string name="edit">Edit</string>
 </resources>

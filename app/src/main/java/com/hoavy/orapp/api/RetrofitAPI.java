@@ -80,4 +80,7 @@ public interface RetrofitAPI {
 
     @DELETE("Posts/UnSelectPost")
     Call<SelectResponse> unselectPost(@Query("postId") String id, @Query("freelancerId") String freelancerId);
+
+    @PUT("Posts/ProcessPost")
+    Call<SelectResponse> processPost(@Query("id") String id, @Query("freelancerId") String freelancerId);
 }

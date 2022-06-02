@@ -280,7 +280,7 @@ public class UpdatePostFragment extends Fragment {
                             progressDialog.dismiss();
                         }
                         postDetailViewModel.getPost(postId);
-                        onBackPressed();
+                        onUpdatedPost();
                     }
                 }
 
@@ -305,7 +305,13 @@ public class UpdatePostFragment extends Fragment {
 
         return false;
     }
+    public void onUpdatedPost() {
+        if (getActivity() != null) {
+            ((PostDetialActivity) getActivity()).handleUpdatedPost();
+            ((PostDetialActivity)getActivity()).addPostDetailFragment();
+        }
 
+    }
     public void onBackPressed() {
         ((PostDetialActivity)getActivity()).addPostDetailFragment();
     }

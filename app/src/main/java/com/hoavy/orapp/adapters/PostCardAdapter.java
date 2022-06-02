@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,9 +30,11 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCa
 
     private List<PostResponse> postResponses = new ArrayList<>();
     private Context context;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
-    public PostCardAdapter(Context context) {
+    public PostCardAdapter(Context context, ActivityResultLauncher<Intent> activityResultLauncher) {
         this.context = context;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     public void setPostResponses(List<PostResponse> postResponses) {
@@ -82,7 +85,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.PostCa
                 Bundle bundle = new Bundle();
                 bundle.putString("id", postResponse.getId());
                 intent.putExtra("post", bundle);
-                context.startActivity(intent);
+                activityResultLauncher.launch(intent);
             }
         });
 

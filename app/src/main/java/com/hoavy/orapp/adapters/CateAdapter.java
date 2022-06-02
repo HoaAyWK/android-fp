@@ -6,15 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.models.dtos.response.CategoryResponse;
 import com.hoavy.orapp.repositories.CategoryRepository;
+import com.hoavy.orapp.ui.Category.CategoryViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,10 @@ import java.util.List;
 public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateHolder> {
     private List<CategoryResponse> categoryResponses = new ArrayList<>();
     private CategoryRepository categoryRepository;
+    private CategoryViewModel categoryViewModel;
 
-    public CateAdapter() {
-        categoryRepository = new CategoryRepository();
+    public CateAdapter(CategoryViewModel categoryViewModel) {
+        this.categoryViewModel = categoryViewModel;
     }
 
     @NonNull
@@ -49,13 +53,13 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateHolder> {
                 .load(cateResponse.getFeaturedImage())
                 .into(holder.imgButton);
 
-        View view = holder.itemView;
 
-        view.setOnClickListener(new View.OnClickListener() {
+        holder.imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                categoryRepository.getPostsByCategory(cateResponse.getId());
-                categoryRepository.setCurrentCategoryTitleLiveData(cateResponse.getName());
+                categoryViewModel.getPostsByCategory(cateResponse.getId());
+                categoryViewModel.setCategoryTitle(cateResponse.getName());
+                categoryViewModel.setCategoryId(cateResponse.getId());
             }
         });
     }
@@ -69,10 +73,12 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateHolder> {
     public class CateHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private ImageButton imgButton;
+        private CardView cateCard;
         public CateHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvCategoryNameCircle);
             imgButton = itemView.findViewById(R.id.btnCategoryCircle);
+            cateCard = itemView.findViewById(R.id.cateCard);
         }
     }
 }

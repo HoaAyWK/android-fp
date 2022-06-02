@@ -59,9 +59,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@string/select"
+                android:layout_marginRight="10dp"
                 android:backgroundTint="@color/success"
-                android:layout_marginRight="10dp"/>
+                android:text="@string/select" />
 
         </RelativeLayout>
 

@@ -41,7 +41,7 @@ public class PostResponse {
     private Author author;
     @SerializedName("assignment")
     @Expose
-    private Object assignment;
+    private Assignment assignment;
     @SerializedName("postCategories")
     @Expose
     private List<PostCategory> postCategories = null;
@@ -143,11 +143,11 @@ public class PostResponse {
         this.author = author;
     }
 
-    public Object getAssignment() {
+    public Assignment getAssignment() {
         return assignment;
     }
 
-    public void setAssignment(Object assignment) {
+    public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
 
@@ -175,7 +175,7 @@ public class PostResponse {
         this.freelancerId = freelancerId;
     }
 
-    public Object getFreelancer() {
+    public Freelancer getFreelancer() {
         return freelancer;
     }
 

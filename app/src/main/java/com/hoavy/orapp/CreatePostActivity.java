@@ -159,6 +159,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                                         if (response.body() != null) {
+                                            setResult(99);
                                             finish();
                                         }
                                     }

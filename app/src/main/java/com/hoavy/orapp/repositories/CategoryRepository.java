@@ -19,17 +19,23 @@ public class CategoryRepository {
     private MutableLiveData<CategoriesResponse> categoriesResponseLiveData;
     private MutableLiveData<PostsResponse> postsByCategoryResponseLiveData;
     private MutableLiveData<String> currentCategoryTitleLiveData;
+    private MutableLiveData<String> currentCategoryIdLiveData;
 
     public CategoryRepository() {
         categoriesResponseLiveData = new MutableLiveData<>();
         postsByCategoryResponseLiveData = new MutableLiveData<>();
         currentCategoryTitleLiveData = new MutableLiveData<>();
+        currentCategoryIdLiveData = new MutableLiveData<>();
         mRetrofitAPI = ApiUtils.getAPIService();
         getCategories();
     }
 
     public void setCurrentCategoryTitleLiveData(String title) {
         currentCategoryTitleLiveData.postValue(title);
+    }
+
+    public void setCurrentCategoryIdLiveData(String id) {
+        currentCategoryIdLiveData.postValue(id);
     }
 
     public void getCategories() {
@@ -40,6 +46,7 @@ public class CategoryRepository {
                     categoriesResponseLiveData.postValue(response.body());
                     getPostsByCategory(response.body().getContent().get(0).getId());
                     setCurrentCategoryTitleLiveData(response.body().getContent().get(0).getName());
+                    setCurrentCategoryIdLiveData(response.body().getContent().get(0).getId());
                 }
             }
 
@@ -74,4 +81,6 @@ public class CategoryRepository {
     public LiveData<PostsResponse> getPostsByCategoryResponse() { return postsByCategoryResponseLiveData; }
 
     public LiveData<String> getCurrentCategoryTitleLiveData() { return currentCategoryTitleLiveData; }
+
+    public LiveData<String> getCurrentCategoryIdTitleLiveData() { return currentCategoryIdLiveData; }
 }

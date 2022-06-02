@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,10 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     private List<PostResponse> postResponses = new ArrayList<>();
     private Context context;
-    public PostAdapter(Context context) {
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    public PostAdapter(Context context, ActivityResultLauncher<Intent> activityResultLauncher) {
         this.context = context;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     public void setPostResponses(List<PostResponse> postResponses) {
@@ -69,17 +72,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                 Intent intent = new Intent(context, PostDetialActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", postResponse.getId());
-                bundle.putString("title", postResponse.getTitle());
-                bundle.putString("description", postResponse.getDescription());
-                bundle.putString("featuredImage", postResponse.getFeaturedImage());
-                bundle.putDouble("price", postResponse.getPrice());
-                bundle.putDouble("duration", postResponse.getDuration());
-
-                bundle.putString("authorId", postResponse.getAuthor().getId());
-                String authorName = postResponse.getAuthor().getFirstName()
-                        + " " + postResponse.getAuthor().getLastName();
-                bundle.putString("authorName", authorName);
-                bundle.putString("authorEmail", postResponse.getAuthor().getEmail());
 
                 if (postResponse.getAuthor().getPhone() == null) {
                     bundle.putString("authorPhone", "");
@@ -94,7 +86,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                 }
 
                 intent.putExtra("post", bundle);
-                context.startActivity(intent);
+                activityResultLauncher.launch(intent);
             }
         });
     }

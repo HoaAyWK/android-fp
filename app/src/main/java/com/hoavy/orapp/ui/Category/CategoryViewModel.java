@@ -1,6 +1,7 @@
 package com.hoavy.orapp.ui.Category;
 
 import android.util.Log;
+import android.widget.ListView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -28,6 +29,7 @@ public class CategoryViewModel extends ViewModel {
     private LiveData<CategoriesResponse> categoriesResponseLiveData;
     private LiveData<PostsResponse> postsResponseLiveData;
     private LiveData<String> mCurrentCategoryTitle;
+    private LiveData<String> mCurrentCategoryId;
 
     public CategoryViewModel() { }
 
@@ -36,12 +38,21 @@ public class CategoryViewModel extends ViewModel {
         categoriesResponseLiveData = categoryRepository.getCategoriesResponseLiveData();
         postsResponseLiveData = categoryRepository.getPostsByCategoryResponse();
         mCurrentCategoryTitle = categoryRepository.getCurrentCategoryTitleLiveData();
+        mCurrentCategoryId = categoryRepository.getCurrentCategoryIdTitleLiveData();
     }
 
     public void getPostsByCategory(String id) { categoryRepository.getPostsByCategory(id); }
 
     public void getCategories() {
         categoryRepository.getCategories();
+    }
+
+    public void setCategoryTitle(String title) {
+        categoryRepository.setCurrentCategoryTitleLiveData(title);
+    }
+
+    public void setCategoryId(String id) {
+        categoryRepository.setCurrentCategoryIdLiveData(id);
     }
 
     public LiveData<PostsResponse> getPostsResponseLiveData() {
@@ -55,4 +66,5 @@ public class CategoryViewModel extends ViewModel {
     public LiveData<String> getCurrentCategoryTitle() {
         return mCurrentCategoryTitle;
     }
+    public LiveData<String> getCurrentCategoryId() { return mCurrentCategoryId; }
 }

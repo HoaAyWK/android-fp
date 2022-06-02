@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.hoavy.orapp.ui.postdetail.ListFreelancerFragment;
 import com.hoavy.orapp.ui.postdetail.PostDetialFragment;
 import com.hoavy.orapp.ui.postdetail.UpdatePostFragment;
 
 public class PostDetialActivity extends AppCompatActivity {
     String postId = "";
+    private boolean updatedPost = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +36,20 @@ public class PostDetialActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.post_detail_container, PostDetialFragment.newInstance(postId))
                 .commit();
+    }
+
+    public void addFreelancerListFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.post_detail_container, ListFreelancerFragment.newInstance(postId))
+                .commit();
+    }
+
+
+    public void handleUpdatedPost() {
+        this.updatedPost = true;
+    }
+
+    public boolean getUpdatedPost() {
+        return this.updatedPost;
     }
 }
