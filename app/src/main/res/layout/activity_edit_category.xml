@@ -3,105 +3,109 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".EditCategoryActivity"
     android:orientation="vertical"
     android:paddingHorizontal="10dp"
     android:paddingBottom="@dimen/normalPadding">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="230dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgEditCategory"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_imageview"
-            android:scaleType="centerCrop" />
+            android:layout_height="230dp">
 
-        <ImageButton
-            android:id="@+id/btnSelectCategoryImg"
-            android:layout_width="65dp"
-            android:layout_height="51dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/purple_500"
-            app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+            <ImageView
+                android:id="@+id/imgEditCategory"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_imageview"
+                android:scaleType="centerCrop" />
 
-    </RelativeLayout>
+            <ImageButton
+                android:id="@+id/btnSelectCategoryImg"
+                android:layout_width="65dp"
+                android:layout_height="51dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/purple_500"
+                app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
-    <TextView
-        android:id="@+id/tvCategoryName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/title_name" />
+        </RelativeLayout>
 
-    <EditText
-        android:id="@+id/etCategoryName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="20sp"
-        android:hint="@string/title_name"
-        tools:layout_editor_absoluteX="100dp" />
-
-
-    <TextView
-        android:id="@+id/tvCategoryDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/title_description"/>
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="1"
-        android:lines="8"
-        android:maxLines="8"
-        android:hint="@string/description"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="53dp" />
-
-    <RelativeLayout
-        android:layout_marginVertical="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvCategoryName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:text="@string/title_name" />
 
-            <Button
-                android:id="@+id/btnSaveEditCategory"
+        <EditText
+            android:id="@+id/etCategoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="20sp"
+            android:hint="@string/title_name"
+            tools:layout_editor_absoluteX="100dp" />
+
+
+        <TextView
+            android:id="@+id/tvCategoryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_description"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="1"
+            android:lines="8"
+            android:maxLines="8"
+            android:hint="@string/description"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="53dp" />
+
+        <RelativeLayout
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/save"
-                app:layout_constraintVertical_bias="0.011" />
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:backgroundTint="@color/gray_888"
-                android:text="@string/cancel"/>
+                <Button
+                    android:id="@+id/btnSaveEditCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    app:layout_constraintVertical_bias="0.011" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:backgroundTint="@color/gray_888"
+                    android:text="@string/cancel"/>
 
-    </RelativeLayout>
+            </LinearLayout>
 
+        </RelativeLayout>
 
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

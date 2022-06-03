@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="@dimen/normalPadding"
     android:paddingRight="@dimen/normalPadding"
     android:paddingBottom="@dimen/normalPadding"
     android:orientation="vertical"
     tools:context=".activities.CreateCategoryActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/image_add_category"
@@ -108,5 +112,7 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout >
