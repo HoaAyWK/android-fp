@@ -1,5 +1,6 @@
 package com.hoavy.orapp.adapters;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import com.bumptech.glide.Glide;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.models.dtos.response.UserResponse;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NewUsersAdapter extends RecyclerView.Adapter<NewUsersAdapter.NewUserHolder> {
@@ -38,8 +42,17 @@ public class NewUsersAdapter extends RecyclerView.Adapter<NewUsersAdapter.NewUse
         UserResponse userResponse = userResponses.get(position);
         String fullName = userResponse.getFirstName() + " " + userResponse.getLastName();
         holder.tvUserName.setText(fullName);
-        holder.tvUserTime.setText(userResponse.getCreatedDate());
-        if (userResponse.getFeaturedAvatar() != null) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+        Date date = new Date();
+        try {
+            date = sdf.parse(userResponse.getCreatedDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formattedDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+        holder.tvUserTime.setText(formattedDate);
+        if (userResponse.getFeaturedAvatar() != null && !TextUtils.isEmpty(userResponse.getFeaturedAvatar())) {
             Glide.with(holder.itemView)
                     .load(userResponse.getFeaturedAvatar())
                     .into(holder.imgUserAvatar);

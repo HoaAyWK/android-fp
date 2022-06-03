@@ -38,9 +38,10 @@ public class CategoriesActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == 150) {
+                    if (result.getResultCode() == 150 || result.getResultCode() == 170) {
                         loadCategories();
                     }
+
                 }
             });
 

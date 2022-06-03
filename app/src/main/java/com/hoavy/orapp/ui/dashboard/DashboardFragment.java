@@ -20,12 +20,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faltenreich.skeletonlayout.Skeleton;
+import com.faltenreich.skeletonlayout.SkeletonLayoutUtils;
 import com.hoavy.orapp.AddCategoryActivity;
 import com.hoavy.orapp.BottomNavigationActivity;
 import com.hoavy.orapp.CategoriesActivity;
+import com.hoavy.orapp.R;
+import com.hoavy.orapp.activities.PostGridActivity;
 import com.hoavy.orapp.activities.UsersActivity;
 import com.hoavy.orapp.adapters.CategoryAdapter;
 import com.hoavy.orapp.adapters.NewUsersAdapter;
+import com.hoavy.orapp.adapters.PostGridAdapter;
 import com.hoavy.orapp.databinding.FragmentDashboardBinding;
 import com.hoavy.orapp.models.dtos.response.UsersResponse;
 import com.hoavy.orapp.ui.viewmodels.CategoryCardViewModel;
@@ -37,6 +42,7 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private NewUsersAdapter adapter;
     DashboardViewModel dashboardViewModel;
+    Skeleton skeletonRecentRegisters;
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -52,15 +58,6 @@ public class DashboardFragment extends Fragment {
         adapter = new NewUsersAdapter();
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         dashboardViewModel.init(getContext());
-        dashboardViewModel.getUsersResponseLiveData().observe(this,
-                new Observer<UsersResponse>() {
-                    @Override
-                    public void onChanged(UsersResponse usersResponse) {
-                        if (usersResponse != null) {
-                            adapter.setUserResponses(usersResponse.getContent());
-                        }
-                    }
-                });
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -71,9 +68,23 @@ public class DashboardFragment extends Fragment {
 
         RecyclerView recyclerView = binding.recyclerNewUsers;
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+                LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        skeletonRecentRegisters = SkeletonLayoutUtils.applySkeleton(recyclerView, R.layout.item_new_user);
+        skeletonRecentRegisters.showSkeleton();
+
+        dashboardViewModel.getUsersResponseLiveData().observe(getViewLifecycleOwner(),
+                new Observer<UsersResponse>() {
+                    @Override
+                    public void onChanged(UsersResponse usersResponse) {
+                        if (usersResponse != null) {
+                            skeletonRecentRegisters.showOriginal();
+                            adapter.setUserResponses(usersResponse.getContent());
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
+
 
         final ImageButton btnCategory = binding.dashboardBtnCategories;
         btnCategory.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +97,11 @@ public class DashboardFragment extends Fragment {
 
         binding.dashboardBtnUsers.setOnClickListener(v -> {
             Intent intent = new Intent(container.getContext(), UsersActivity.class);
+            activityResultLauncher.launch(intent);
+        });
+
+        binding.dashboardBtnPosts.setOnClickListener(v -> {
+            Intent intent = new Intent(container.getContext(), PostGridActivity.class);
             activityResultLauncher.launch(intent);
         });
 

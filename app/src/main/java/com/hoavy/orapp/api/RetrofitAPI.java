@@ -15,6 +15,7 @@ import com.hoavy.orapp.models.dtos.response.PostResponse;
 import com.hoavy.orapp.models.dtos.response.PostsResponse;
 import com.hoavy.orapp.models.dtos.response.SelectResponse;
 import com.hoavy.orapp.models.dtos.response.SinglePostResponse;
+import com.hoavy.orapp.models.dtos.response.UpdateCateResponse;
 import com.hoavy.orapp.models.dtos.response.UpdateUserResponse;
 import com.hoavy.orapp.models.dtos.response.UsersResponse;
 import com.hoavy.orapp.repositories.PostsRepository;
@@ -101,4 +102,10 @@ public interface RetrofitAPI {
 
     @GET("Users/GetAllCustomers")
     Call<UsersResponse> getAllCustomers();
+
+    @PUT("Categories/UpdateCategory")
+    Call<UpdateCateResponse> updateCategory(@Query("id") String id, @Body CategoryRequest categoryRequest);
+
+    @GET("Users/GetRecentRegister")
+    Call<UsersResponse> getRecentRegister(@Query("number") int number);
 }

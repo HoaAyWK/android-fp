@@ -25,9 +25,7 @@
         android:id="@+id/category_card_title"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_category_card"
         android:textColor="@color/category_title"
         android:layout_margin="5dp"
-        android:text="Sample"
         android:textSize="@dimen/frutorial_title" />
 </LinearLayout>

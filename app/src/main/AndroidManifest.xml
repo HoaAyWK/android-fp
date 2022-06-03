@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Orapp">
         <activity
+            android:name=".activities.PostGridActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.UsersActivity"
             android:exported="false" />
         <activity
@@ -58,7 +61,8 @@
             android:label="@string/title_activity_bottom_navigation" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

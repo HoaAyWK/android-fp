@@ -47,7 +47,7 @@ public class UsersActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        setTitle("Manage User");
+        setTitle("Manage Users");
 
         binding = ActivityUsersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -55,7 +55,7 @@ public class UsersActivity extends AppCompatActivity {
         recyclerCustomers = binding.recyclerCustomers;
         recyclerCustomers.setLayoutManager(new LinearLayoutManager(this));
         skeletonCustomers = SkeletonLayoutUtils.applySkeleton(recyclerCustomers, R.layout.item_list_user);
-        skeletonCustomers.showSkeleton();;
+        skeletonCustomers.showSkeleton();
 
         recyclerFreelancers = binding.recyclerFreelancers;
         recyclerFreelancers.setLayoutManager(new LinearLayoutManager(this));

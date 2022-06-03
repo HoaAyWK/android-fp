@@ -2,6 +2,7 @@ package com.hoavy.orapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.hoavy.orapp.EditCategoryActivity;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.activities.CreateCategoryActivity;
 import com.hoavy.orapp.models.dtos.response.CategoryResponse;
@@ -53,7 +55,13 @@ public class DbCategoryAdapter extends RecyclerView.Adapter<DbCategoryAdapter.Db
                 .load(cateResponse.getFeaturedImage())
                 .into(holder.categoryImage);
         holder.selectButton.setOnClickListener(v -> {
-            Intent intent = new Intent(context, CreateCategoryActivity.class);
+            Intent intent = new Intent(context, EditCategoryActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("id", cateResponse.getId());
+            bundle.putString("description", cateResponse.getDescription());
+            bundle.putString("image", cateResponse.getFeaturedImage());
+            bundle.putString("name", cateResponse.getName());
+            intent.putExtra("category", bundle);
             activityResultLauncher.launch(intent);
         });
     }

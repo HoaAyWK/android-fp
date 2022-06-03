@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:orientation="vertical">
             <TextView
                 style="@style/viewParent.headerText"
@@ -75,38 +76,17 @@
                     android:elevation="@dimen/card_image_elevation"
                     android:src="@drawable/header_image" />
             </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <TextView
-                    style="@style/viewParent.headerText"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/categories" />
-
-            </RelativeLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_new_users"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:listitem="@layout/item_new_user"
-                >
-
-            </androidx.recyclerview.widget.RecyclerView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageButton
                             android:id="@+id/dashboard_btn_categories"
                             android:layout_width="100dp"
@@ -117,12 +97,13 @@
                             android:layout_marginBottom="5dp"
                             android:background="@drawable/circle_button"
                             android:src="@drawable/ic_baseline_category_36" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@string/categories"
                             android:textAlignment="center"
-                            android:textSize="@dimen/text_circle_button"
-                            android:text="@string/categories"/>
+                            android:textSize="@dimen/text_circle_button" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -167,6 +148,33 @@
                    </LinearLayout>
 
                 </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <TextView
+                    style="@style/viewParent.headerText"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/recent_register" />
+
+            </RelativeLayout>
+
+            <com.faltenreich.skeletonlayout.SkeletonLayout
+                android:id="@+id/skeletonRecentRegisters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_new_users"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+
+            </com.faltenreich.skeletonlayout.SkeletonLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

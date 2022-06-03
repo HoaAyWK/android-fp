@@ -25,7 +25,7 @@ public class UserRepository {
     }
 
     public void getUsers() {
-        mRetrofitAPI.getUsers().enqueue(new Callback<UsersResponse>() {
+        mRetrofitAPI.getRecentRegister(3).enqueue(new Callback<UsersResponse>() {
             @Override
             public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
                 if (response.body() != null) {

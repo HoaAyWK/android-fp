@@ -24,4 +24,24 @@
     <color name="gray_888">#888</color>
     <color name="gray_bbb">#ddd</color>
     <color name="cyan"> #00BCD4</color>
+
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAction">#fe4d5f</color>
+    <color name="colorHyperTrack">#00ce5b</color>
+    <color name="colorFAButtonSecondary">#ffffff</color>
+    <color name="textColorPrimary">#4c4b5d</color>
+    <color name="textColorSecondary">#94929d</color>
+    <color name="colorTips">#e60a84ff</color>
+    <color name="highlight">#14000000</color>
+    <color name="bgIcon">#c7c6cd</color>
+    <color name="cover">#6694929d</color>
+    <color name="frutorial_title">#4c4c4c</color>
+    <color name="whiteBodyColor">#FCFCFC</color>
+    <color name="whiteTextColor">#fff</color>
+    <color name="darkTextColor">#020000</color>
+    <color name="bottomNavigationTextColor">#B2B2B2</color>
+    <color name="bottomNavigationTintColor">#B2B2B2</color>
+    <color name="bottomNavigationSelectedColor">#FC4926</color>
+    <color name="colorAccent">#FF402D</color>
 </resources>

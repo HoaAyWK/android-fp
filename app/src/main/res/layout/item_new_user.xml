@@ -7,7 +7,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/highest_price_post_bg"
+        android:layout_margin="5dp"
         card_view:cardCornerRadius="10dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,13 +20,16 @@
                 android:layout_margin="5dp"
                 android:elevation="1dp"
                 card_view:cardCornerRadius="40dp">
+
                 <ImageView
                     android:id="@+id/imgNewUser"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:src="@drawable/ic_baseline_account_circle_24"
                     android:scaleType="centerCrop"/>
+
             </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -37,13 +40,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/first_name"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/tvNewUserTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/last_name"
                     android:layout_marginTop="20dp"/>
             </LinearLayout>
         </LinearLayout>
