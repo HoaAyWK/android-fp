@@ -9,6 +9,7 @@
         android:id="@+id/highestPriceCard"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
         card_view:cardCornerRadius="10dp"
         android:elevation="1dp"
         android:layout_marginVertical="5dp"

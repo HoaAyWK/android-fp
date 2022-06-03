@@ -24,7 +24,6 @@ import java.util.List;
 
 public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateHolder> {
     private List<CategoryResponse> categoryResponses = new ArrayList<>();
-    private CategoryRepository categoryRepository;
     private CategoryViewModel categoryViewModel;
 
     public CateAdapter(CategoryViewModel categoryViewModel) {

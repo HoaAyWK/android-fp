@@ -74,4 +74,6 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="country">Country</string>
+    <string name="detail">Detail</string>
+    <string name="create_category">Add</string>
 </resources>

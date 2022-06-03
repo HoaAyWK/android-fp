@@ -6,4 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".CategoriesActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/categories"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btnAddCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="@color/success"
+                android:text="@string/create_category"/>
+
+        </RelativeLayout>
+
+
+        <com.faltenreich.skeletonlayout.SkeletonLayout
+            android:id="@+id/skeletonDbCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCategories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.faltenreich.skeletonlayout.SkeletonLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

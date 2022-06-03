@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -18,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoavy.orapp.AddCategoryActivity;
 import com.hoavy.orapp.BottomNavigationActivity;
+import com.hoavy.orapp.CategoriesActivity;
 import com.hoavy.orapp.adapters.CategoryAdapter;
 import com.hoavy.orapp.adapters.NewUsersAdapter;
 import com.hoavy.orapp.databinding.FragmentDashboardBinding;
@@ -31,6 +36,15 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private NewUsersAdapter adapter;
     DashboardViewModel dashboardViewModel;
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                }
+            });
 
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,11 +78,10 @@ public class DashboardFragment extends Fragment {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(container.getContext(), AddCategoryActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(container.getContext(), CategoriesActivity.class);
+                activityResultLauncher.launch(intent);
             }
         });
-
 
         return root;
     }

@@ -28,6 +28,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     private List<PostResponse> postResponses = new ArrayList<>();
     private Context context;
     ActivityResultLauncher<Intent> activityResultLauncher;
+
     public PostAdapter(Context context, ActivityResultLauncher<Intent> activityResultLauncher) {
         this.context = context;
         this.activityResultLauncher = activityResultLauncher;
