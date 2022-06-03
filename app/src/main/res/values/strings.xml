@@ -69,4 +69,9 @@
     <string name="selected_freelancer">Selected Freelancer</string>
     <string name="text_create">Want to hire a freelancer</string>
     <string name="edit">Edit</string>
+    <string name="name">Name</string>
+    <string name="register_as">Register As</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="country">Country</string>
 </resources>

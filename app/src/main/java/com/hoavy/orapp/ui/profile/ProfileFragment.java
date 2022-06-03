@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,9 +35,11 @@ import com.hoavy.orapp.CreatePostActivity;
 import com.hoavy.orapp.LoginActivity;
 import com.hoavy.orapp.R;
 import com.hoavy.orapp.UserProfileFragment;
+import com.hoavy.orapp.activities.UpdateProfileActivity;
 import com.hoavy.orapp.adapters.PostAdapter;
 import com.hoavy.orapp.adapters.PostCardAdapter;
 import com.hoavy.orapp.databinding.FragmentProfileBinding;
+import com.hoavy.orapp.models.dtos.UpdateInfoRequest;
 import com.hoavy.orapp.models.dtos.response.PostsResponse;
 import com.hoavy.orapp.ui.home.HomeViewModel;
 import com.hoavy.orapp.utils.SharedHelper;
@@ -47,9 +50,11 @@ public class ProfileFragment extends Fragment {
     private Skeleton skeletonLatestPosts;
     private Skeleton skeletonProcessingPosts;
     private Skeleton skeletonFinishedPosts;
+    private Skeleton skeletonFreelancerProcessingPosts;
     private Skeleton skeletonTitleLatest;
     private Skeleton skeletonTitleProcessing;
     private Skeleton skeletonTitleFinished;
+    private Skeleton skeletonTitleFreelancerProcessingPosts;
 
     ProfileViewModel profileViewModel;
     HomeViewModel homeViewModel;
@@ -57,6 +62,7 @@ public class ProfileFragment extends Fragment {
     PostAdapter availablePostsAdapter;
     PostAdapter processingPostsAdapter;
     PostAdapter finishedPostAdapter;
+    PostAdapter freelancerProcessingPostsAdapter;
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -65,6 +71,10 @@ public class ProfileFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == 99 || result.getResultCode() == 110) {
                         reloadPosts();
+                    }
+
+                    if (result.getResultCode() == 202) {
+                        reloadAvatarAndInfo();
                     }
                 }
             }
@@ -79,20 +89,23 @@ public class ProfileFragment extends Fragment {
         homeViewModel = new ViewModelProvider(requireActivity())
                 .get(HomeViewModel.class);
 
-        if (!TextUtils.equals(sharedHelper.getRole(), "Freelancer")) {
+        if (TextUtils.equals(sharedHelper.getRole(), "Customer")) {
 
-            profileViewModel.init(getContext());
+            profileViewModel.init(getContext(), sharedHelper.getRole());
 
             availablePostsAdapter = new PostAdapter(getContext(), activityResultLauncher);
             processingPostsAdapter = new PostAdapter(getContext(), activityResultLauncher);
             finishedPostAdapter = new PostAdapter(getContext(), activityResultLauncher);
+        } else if (TextUtils.equals(sharedHelper.getRole(), "Freelancer")) {
+            profileViewModel.init(getContext(), sharedHelper.getRole());
+            freelancerProcessingPostsAdapter = new PostAdapter(getContext(), activityResultLauncher);
         }
 
         if (sharedHelper.isLoggedIn()) {
             String name = sharedHelper.getFistName() + " " + sharedHelper.getLastName();
             profileViewModel.setName(name);
 
-            if (sharedHelper.getAvatar() != null) {
+            if (sharedHelper.getAvatar() != null && !TextUtils.isEmpty(sharedHelper.getAvatar())) {
                 profileViewModel.setmImage(sharedHelper.getAvatar());
             }
         }
@@ -107,14 +120,47 @@ public class ProfileFragment extends Fragment {
 
         String email = "Email: " + sharedHelper.getEmail();
         String phone = "Phone: " + sharedHelper.getPhone();
+        String address = "Address: " + sharedHelper.getAddress();
+        String country = "Country: " + sharedHelper.getCountry();
+        String role = "Role: " + sharedHelper.getRole();
 
         binding.userEmail.setText(email);
         binding.userPhone.setText(phone);
+        binding.userAddress.setText(address);
+        binding.userRole.setText(role);
+        binding.userCountry.setText(country);
 
         if (TextUtils.equals(sharedHelper.getRole(), "Freelancer")) {
             binding.customerPostsPanel.setVisibility(View.GONE);
-        } else {
+            TextView titleFreelancerProcessingPosts = binding.titleFreelancerProcessingPosts;
+            skeletonTitleFreelancerProcessingPosts = SkeletonLayoutUtils.createSkeleton(titleFreelancerProcessingPosts);
+            skeletonTitleFreelancerProcessingPosts.showSkeleton();
 
+            RecyclerView recyclerFreelancerPosts = binding.recyclerFreelancerPosts;
+            recyclerFreelancerPosts.setLayoutManager(new LinearLayoutManager(container.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+            recyclerFreelancerPosts.setHasFixedSize(true);
+
+            skeletonFreelancerProcessingPosts = SkeletonLayoutUtils.applySkeleton(recyclerFreelancerPosts, R.layout.item_latest_post);
+            skeletonFreelancerProcessingPosts.showSkeleton();
+
+            profileViewModel.getFreelancerProcessingPostResponse().observe(getViewLifecycleOwner(), new Observer<PostsResponse>() {
+                @Override
+                public void onChanged(PostsResponse postsResponse) {
+                    if (postsResponse != null) {
+                        skeletonFreelancerProcessingPosts.showOriginal();
+                        freelancerProcessingPostsAdapter.setPostResponses(postsResponse.getContent());
+                        skeletonTitleFreelancerProcessingPosts.showOriginal();
+                        if (postsResponse.getContent().size() > 0) {
+                            titleFreelancerProcessingPosts.setText(R.string.processing_posts);
+                        }
+                        recyclerFreelancerPosts.setAdapter(freelancerProcessingPostsAdapter);
+                    }
+                }
+            });
+
+        } else if (TextUtils.equals(sharedHelper.getRole(), "Customer"))  {
+            binding.freelancerPostsPanel.setVisibility(View.GONE);
             TextView titleProcessingPosts = binding.titleProcessingPosts;
             TextView titleFinishedPosts = binding.titleFinishedPosts;
             TextView titleLatestPosts = binding.titleLatestPosts;
@@ -159,7 +205,9 @@ public class ProfileFragment extends Fragment {
                         skeletonProcessingPosts.showOriginal();
                         processingPostsAdapter.setPostResponses(postsResponse.getContent());
                         skeletonTitleProcessing.showOriginal();
-                        titleProcessingPosts.setText(R.string.processing_posts);
+                        if (postsResponse.getContent().size() > 0) {
+                            titleProcessingPosts.setText(R.string.processing_posts);
+                        }
 
                         recyclerProcessingPosts.setAdapter(processingPostsAdapter);
                     }
@@ -185,15 +233,24 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             });
+
+            binding.createNewPost.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), CreatePostActivity.class);
+
+                activityResultLauncher.launch(intent);
+            });
+
+        } else {
+            binding.customerPostsPanel.setVisibility(View.GONE);
+            binding.freelancerPostsPanel.setVisibility(View.GONE);
         }
 
         LinearLayout profilePanel = binding.profilePanel;
         RelativeLayout signInOrSignUp = binding.signInOrSignUp;
         ImageView profileAvatar = binding.imgProfileAvatar;
         TextView profileName = binding.profileName;
-        Button btnSignOut = binding.btnSignOut;
+        ImageButton btnSignOut = binding.btnSignOut;
         Button btnSignIn = binding.btnSignIn;
-        Button btnCreateNewPost = binding.createNewPost;
 
         if (sharedHelper.isLoggedIn()) {
             profilePanel.setVisibility(View.VISIBLE);
@@ -228,39 +285,22 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-        btnCreateNewPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CreatePostActivity.class);
-
-                activityResultLauncher.launch(intent);
-            }
+        btnSignOut.setOnClickListener(v -> {
+            sharedHelper.logout();
+            profileViewModel.setName("");
+            profileViewModel.setmImage(null);
+            profilePanel.setVisibility(View.INVISIBLE);
+            signInOrSignUp.setVisibility(View.VISIBLE);
         });
 
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sharedHelper.logout();
-                profileViewModel.setName("");
-                profileViewModel.setmImage(null);
-                profilePanel.setVisibility(View.INVISIBLE);
-                signInOrSignUp.setVisibility(View.VISIBLE);
-            }
+        btnSignIn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        binding.editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        binding.editProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), UpdateProfileActivity.class);
+            activityResultLauncher.launch(intent);
         });
 
         return root;
@@ -270,6 +310,24 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getPosts();
         homeViewModel.getPosts();
         homeViewModel.getHighestPricePosts();
+    }
+
+
+    public void reloadAvatarAndInfo() {
+        String email = "Email: " + sharedHelper.getEmail();
+        String phone = "Phone: " + sharedHelper.getPhone();
+        String address = "Address: " + sharedHelper.getAddress();
+        String country = "Country: " + sharedHelper.getCountry();
+        String role = "Role: " + sharedHelper.getRole();
+
+        binding.userEmail.setText(email);
+        binding.userPhone.setText(phone);
+        binding.userAddress.setText(address);
+        binding.userRole.setText(role);
+        binding.userCountry.setText(country);
+        Glide.with(this)
+                .load(sharedHelper.getAvatar())
+                .into(binding.imgProfileAvatar);
     }
 
 

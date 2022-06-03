@@ -28,7 +28,7 @@ public class User {
     private Boolean success;
     @SerializedName("errors")
     @Expose
-    private String errors;
+    private List<String> errors;
     @SerializedName("createdDate")
     @Expose
     private String createdDate;
@@ -107,11 +107,11 @@ public class User {
     }
 
     @Nullable
-    public String getErrors() {
+    public List<String> getErrors() {
         return errors;
     }
 
-    public void setErrors(@Nullable String errors) {
+    public void setErrors(@Nullable List<String> errors) {
         this.errors = errors;
     }
 

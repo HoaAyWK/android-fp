@@ -3,6 +3,7 @@ package com.hoavy.orapp;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     private EditText etEmail, etPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnRegister;
     private TextView incorrect;
 
     private RetrofitAPI mRetrofitAPI;
@@ -50,12 +51,15 @@ public class LoginFragment extends Fragment {
         sharedHelper = SharedHelper.getInstance(getContext());
         mRetrofitAPI = ApiUtils.getAPIService();
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
         getActivity().setTitle(R.string.sign_in_to_your_account);
 
         etEmail = view.findViewById(R.id.et_login_email);
         etPassword = view.findViewById(R.id.et_login_password);
         incorrect = view.findViewById(R.id.tv_login_incorrect);
         btnLogin = view.findViewById(R.id.btn_login);
+        btnRegister = view.findViewById(R.id.btn_register);
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,16 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+
+        btnRegister.setOnClickListener(v -> {
+            onRegisterPressed();
+        });
+    }
+
+    public void onRegisterPressed() {
+        if (getActivity() != null) {
+            ((LoginActivity)getActivity()).addRegisterFragment();
+        }
     }
 
     public void startSignIn(String email, String password) {

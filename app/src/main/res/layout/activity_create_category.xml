@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/normalPadding"
+    android:paddingRight="@dimen/normalPadding"
+    android:paddingBottom="@dimen/normalPadding"
+    android:orientation="vertical"
+    tools:context=".activities.CreateCategoryActivity">
+
+    <ImageView
+        android:id="@+id/image_add_category"
+        android:layout_width="350dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_imageview"
+        android:scaleType="centerCrop"
+        />
+
+    <ImageButton
+        android:id="@+id/btnSelectCateImgAdd"
+        android:layout_width="65dp"
+        android:layout_height="51dp"
+        android:backgroundTint="@color/success"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"
+        android:text="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:id="@+id/etCateAddName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:background="@drawable/custom_input"
+        android:inputType="textPersonName"
+        android:hint="@string/title_name"
+        app:layout_constraintTop_toBottomOf="@+id/tvCateAddName"/>
+
+    <TextView
+        android:id="@+id/tvCategoryDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/title_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCategoryName"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/etCateAddDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:lines="8"
+        android:maxLines="15"
+        android:hint="@string/description"
+        android:textAlignment="center"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="53dp"
+        android:background="@drawable/custom_input"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSaveCateAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/save" />
+
+            <Button
+                android:id="@+id/btnCancelAddCate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/gray_888"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/cancel" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout >

@@ -1,6 +1,7 @@
 package com.hoavy.orapp.ui.profile;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,6 +18,7 @@ public class ProfileViewModel extends ViewModel {
     private LiveData<PostsResponse> availablePostResponses;
     private LiveData<PostsResponse> processingPostResponses;
     private LiveData<PostsResponse> finishedPostResponses;
+    private LiveData<PostsResponse> freelancerProcessingPostResponses;
     private PostsAuthRepository postsRepository;
 
     public ProfileViewModel() {
@@ -24,11 +26,15 @@ public class ProfileViewModel extends ViewModel {
         mImage = new MutableLiveData<>();
     }
 
-    public void init(Context context) {
-        postsRepository = new PostsAuthRepository(context);
-        availablePostResponses = postsRepository.getCustomerLiveData();
-        processingPostResponses = postsRepository.getProcessingPostsLiveData();
-        finishedPostResponses = postsRepository.getFinishedPostsLiveData();
+    public void init(Context context, String userRole) {
+        postsRepository = new PostsAuthRepository(context, userRole);
+        if (TextUtils.equals(userRole, "Freelancer")) {
+            freelancerProcessingPostResponses = postsRepository.getFreelancerProcessingPostsLiveData();
+        } else if(TextUtils.equals(userRole, "Customer")) {
+            availablePostResponses = postsRepository.getCustomerLiveData();
+            processingPostResponses = postsRepository.getProcessingPostsLiveData();
+            finishedPostResponses = postsRepository.getFinishedPostsLiveData();
+        }
     }
 
     public void getPosts() {
@@ -38,6 +44,8 @@ public class ProfileViewModel extends ViewModel {
     public void getProcessingPosts() { postsRepository.getProcessingPosts(); }
 
     public void getFinishedPosts() { postsRepository.getFinishedPosts(); }
+
+    public void getFreelancerProcessingPosts() { postsRepository.getFreelancerProcessingPosts(); }
 
     public void setName(String name) {
         mName.setValue(name);
@@ -64,4 +72,6 @@ public class ProfileViewModel extends ViewModel {
     }
 
     public LiveData<PostsResponse> getFinishedPostResponses() { return finishedPostResponses; }
+
+    public LiveData<PostsResponse> getFreelancerProcessingPostResponse() { return freelancerProcessingPostResponses; }
 }

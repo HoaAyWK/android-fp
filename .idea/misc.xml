@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/drawable/circle_button.xml" value="0.2235" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/drawable/custom_imageview.xml" value="0.2185" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/drawable/custom_input.xml" value="0.2185" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_add_category.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.22826086956521738" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_categories.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_create_category.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_create_post.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_dashboard.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_edit_category.xml" value="0.22826086956521738" />
@@ -14,6 +17,7 @@
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_login.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_main.xml" value="0.21822916666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_post.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_update_profile.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/category_fragment.xml" value="0.22826086956521738" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/content_dashboard.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/create_new_post_activity.xml" value="0.23229166666666667" />
@@ -43,6 +47,7 @@
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/dashboard.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/normal_bottom_nav_menu.xml" value="0.17677368212445502" />
       </map>
     </option>
   </component>

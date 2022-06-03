@@ -32,7 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_frame, fragment, LoginFragment.class.getSimpleName())
-                .addToBackStack(LoginFragment.class.getSimpleName())
                 .commitAllowingStateLoss();
+    }
+
+    public void addRegisterFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_frame, RegisterFragment.newInstance())
+                .addToBackStack(LoginFragment.class.getSimpleName())
+                .commit();
     }
 }

@@ -2,63 +2,195 @@ package com.hoavy.orapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.hoavy.orapp.api.ApiUtils;
+import com.hoavy.orapp.api.RetrofitAPI;
+import com.hoavy.orapp.databinding.FragmentRegisterBinding;
+import com.hoavy.orapp.models.User;
+import com.hoavy.orapp.models.dtos.RegisterRequest;
+import com.hoavy.orapp.utils.SharedHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FragmentRegisterBinding binding;
+    SharedHelper sharedHelper;
+    ArrayAdapter<String> adapterRoles;
+    RetrofitAPI mRetrofitAPI;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    String role = "Freelancer";
 
     public RegisterFragment() {
-        // Required empty public constructor
+        sharedHelper = SharedHelper.getInstance(getContext());
+        mRetrofitAPI = ApiUtils.getAPIService();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegisterFragment newInstance(String param1, String param2) {
-        RegisterFragment fragment = new RegisterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        getActivity().setTitle("Register");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        Spinner registerAs = binding.spinnerRoles;
+        TextView errorMessage = binding.registerIncorrect;
+        EditText etFirstName = binding.etRegisterFirstName;
+        EditText etLastName = binding.etRegisterLastName;
+        EditText etEmail = binding.etRegisterEmail;
+        EditText etPassword = binding.etRegisterPassword;
+        EditText etRepeatPassword = binding.etRepeatPassword;
+        Button registerButton = binding.btnRegister2;
+        Button signInButton = binding.btnSignIn2;
+
+        List<String> roles = new ArrayList<>();
+        roles.add("Freelancer");
+        roles.add("Customer");
+
+        adapterRoles = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, roles);
+        adapterRoles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        registerAs.setAdapter(adapterRoles);
+        registerAs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                role = (String) parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        registerButton.setClickable(false);
+
+        registerButton.setOnClickListener(v -> {
+            String message = "";
+            String firstName = etFirstName.getText().toString();
+            String lastName = etLastName.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String repeatPassword = etRepeatPassword.getText().toString();
+
+            if (!TextUtils.equals(password, repeatPassword)) {
+                message = "Repeat password does not match";
+                errorMessage.setText(message);
+                errorMessage.setVisibility(View.VISIBLE);
+                return;
+            }
+
+            RegisterRequest request = new RegisterRequest(firstName, lastName, email, password);
+            if (TextUtils.equals(role, "Freelancer")) {
+                mRetrofitAPI.freelancerRegister(request).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.body() != null) {
+                            errorMessage.setVisibility(View.INVISIBLE);
+                            User registerResponse = response.body();
+                            long currentDate = System.currentTimeMillis();
+                            sharedHelper.setUserInfo(registerResponse.getUserId(), registerResponse.getToken(),
+                                    registerResponse.getRefreshToken(), registerResponse.getEmail(),
+                                    registerResponse.getFirstName(), registerResponse.getLastName(),
+                                    registerResponse.getUserAvatar(), registerResponse.getFeaturedBackground(),
+                                    registerResponse.getPhone(), registerResponse.getAddress(), registerResponse.getCountry(),
+                                    registerResponse.getRoles().get(0), currentDate);
+
+                            if (getActivity() != null) {
+                                ((LoginActivity) getActivity()).onLoginCompleted();
+                            }
+                        }
+
+                        if (response.code() != 200) {
+                            errorMessage.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
+            } else {
+                mRetrofitAPI.customerRegister(request).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.code() == 200) {
+                            errorMessage.setVisibility(View.INVISIBLE);
+                            User registerResponse = response.body();
+                            long currentDate = System.currentTimeMillis();
+                            sharedHelper.setUserInfo(registerResponse.getUserId(), registerResponse.getToken(),
+                                    registerResponse.getRefreshToken(), registerResponse.getEmail(),
+                                    registerResponse.getFirstName(), registerResponse.getLastName(),
+                                    registerResponse.getUserAvatar(), registerResponse.getFeaturedBackground(),
+                                    registerResponse.getPhone(), registerResponse.getAddress(), registerResponse.getCountry(),
+                                    registerResponse.getRoles().get(0), currentDate);
+
+                            if (getActivity() != null) {
+                                ((LoginActivity) getActivity()).onLoginCompleted();
+                            }
+                        } else {
+                            errorMessage.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getActivity() != null) {
+                    onBackPressed();
+                }
+                return true;
+        }
+        return false;
+    }
+
+    public void onBackPressed() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 }

@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Orapp">
         <activity
+            android:name=".activities.UpdateProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateNewPostActivity"
             android:exported="false" />
         <activity

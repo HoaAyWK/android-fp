@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/normalPadding"
     android:paddingRight="@dimen/normalPadding"
     android:paddingBottom="@dimen/normalPadding"
+    android:layout_marginBottom="50dp"
     tools:context=".ui.Category.CategoryFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

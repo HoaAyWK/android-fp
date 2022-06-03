@@ -3,16 +3,19 @@ package com.hoavy.orapp.api;
 import com.hoavy.orapp.models.Post;
 import com.hoavy.orapp.models.Tokens;
 import com.hoavy.orapp.models.User;
+import com.hoavy.orapp.models.dtos.AvatarRequest;
 import com.hoavy.orapp.models.dtos.CategoryRequest;
 import com.hoavy.orapp.models.dtos.LoginRequest;
 import com.hoavy.orapp.models.dtos.PostRequest;
 import com.hoavy.orapp.models.dtos.RegisterRequest;
 import com.hoavy.orapp.models.dtos.TokensRequest;
+import com.hoavy.orapp.models.dtos.UpdateInfoRequest;
 import com.hoavy.orapp.models.dtos.response.CategoriesResponse;
 import com.hoavy.orapp.models.dtos.response.PostResponse;
 import com.hoavy.orapp.models.dtos.response.PostsResponse;
 import com.hoavy.orapp.models.dtos.response.SelectResponse;
 import com.hoavy.orapp.models.dtos.response.SinglePostResponse;
+import com.hoavy.orapp.models.dtos.response.UpdateUserResponse;
 import com.hoavy.orapp.models.dtos.response.UsersResponse;
 import com.hoavy.orapp.repositories.PostsRepository;
 
@@ -72,6 +75,9 @@ public interface RetrofitAPI {
     @GET("Posts/GetCustomerFinishedPosts")
     Call<PostsResponse> getCustomerFinishedPosts();
 
+    @GET("Posts/GetFreelancerProcessingPosts")
+    Call<PostsResponse> getFreelancerProcessingPosts();
+
     @PUT("Posts/UpdatePost")
     Call<Post> updatePost(@Query("id") String id, @Body PostRequest postRequest);
 
@@ -83,4 +89,10 @@ public interface RetrofitAPI {
 
     @PUT("Posts/ProcessPost")
     Call<SelectResponse> processPost(@Query("id") String id, @Query("freelancerId") String freelancerId);
+
+    @PUT("Users/UpdateAvatar")
+    Call<SelectResponse> updateAvatar(@Body AvatarRequest avatarRequest);
+
+    @PUT("Users/UpdateUserInfo")
+    Call<UpdateUserResponse> updateUserInfo(@Query("id") String id, @Body UpdateInfoRequest updateInfoRequest);
 }
