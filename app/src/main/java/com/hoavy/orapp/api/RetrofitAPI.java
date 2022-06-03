@@ -95,4 +95,10 @@ public interface RetrofitAPI {
 
     @PUT("Users/UpdateUserInfo")
     Call<UpdateUserResponse> updateUserInfo(@Query("id") String id, @Body UpdateInfoRequest updateInfoRequest);
+
+    @GET("Users/GetAllFreelancers")
+    Call<UsersResponse> getAllFreelancers();
+
+    @GET("Users/GetAllCustomers")
+    Call<UsersResponse> getAllCustomers();
 }

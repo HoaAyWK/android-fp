@@ -18,6 +18,7 @@
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_main.xml" value="0.21822916666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_post.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_update_profile.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/activity_users.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/category_fragment.xml" value="0.22826086956521738" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/content_dashboard.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/create_new_post_activity.xml" value="0.23229166666666667" />
@@ -38,8 +39,10 @@
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_freelancer_card.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_highest_price_post.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_latest_post.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_list_user.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_new_user.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_post_card.xml" value="0.23229166666666667" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/item_user_grid.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/nav_header_dashboard.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/post_detail_activity.xml" value="0.20652173913043478" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/layout/post_detail_fragment.xml" value="0.20652173913043478" />
@@ -49,6 +52,7 @@
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/dashboard.xml" value="0.23229166666666667" />
         <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/normal_bottom_nav_menu.xml" value="0.17677368212445502" />
+        <entry key="..\:/MoblieProgramming/orapp/app/src/main/res/menu/switch_menu.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>

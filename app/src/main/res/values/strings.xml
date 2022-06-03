@@ -76,4 +76,6 @@
     <string name="country">Country</string>
     <string name="detail">Detail</string>
     <string name="create_category">Add</string>
+    <string name="freelancers">Freelancers</string>
+    <string name="customers">Customers</string>
 </resources>

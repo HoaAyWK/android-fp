@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hoavy.orapp.AddCategoryActivity;
 import com.hoavy.orapp.BottomNavigationActivity;
 import com.hoavy.orapp.CategoriesActivity;
+import com.hoavy.orapp.activities.UsersActivity;
 import com.hoavy.orapp.adapters.CategoryAdapter;
 import com.hoavy.orapp.adapters.NewUsersAdapter;
 import com.hoavy.orapp.databinding.FragmentDashboardBinding;
@@ -81,6 +82,11 @@ public class DashboardFragment extends Fragment {
                 Intent intent = new Intent(container.getContext(), CategoriesActivity.class);
                 activityResultLauncher.launch(intent);
             }
+        });
+
+        binding.dashboardBtnUsers.setOnClickListener(v -> {
+            Intent intent = new Intent(container.getContext(), UsersActivity.class);
+            activityResultLauncher.launch(intent);
         });
 
         return root;

@@ -33,7 +33,7 @@ public class UserResponse {
     private String phone;
     @SerializedName("featuredAvatar")
     @Expose
-    private Object featuredAvatar;
+    private String featuredAvatar;
     @SerializedName("featuredBackground")
     @Expose
     private Object featuredBackground;
@@ -122,11 +122,11 @@ public class UserResponse {
         this.phone = phone;
     }
 
-    public Object getFeaturedAvatar() {
+    public String getFeaturedAvatar() {
         return featuredAvatar;
     }
 
-    public void setFeaturedAvatar(Object featuredAvatar) {
+    public void setFeaturedAvatar(String featuredAvatar) {
         this.featuredAvatar = featuredAvatar;
     }
 
